@@ -493,20 +493,6 @@ attach(Client *c)
 }
 
 void
-attachabove(Client *c)
-{
-	if(c->mon->sel == NULL || c->mon->sel == c->mon->clients || c->mon->sel->isfloating) {
-		attach(c);
-		return;
-	}
-
-	Client *at;
-	for(at = c->mon->clients; at->next != c->mon->sel; at = at->next);
-	c->next = at->next;
-	at->next = c;
-}
-
-void
 attachstack(Client *c)
 {
 	c->snext = c->mon->stack;
@@ -1396,7 +1382,7 @@ void
 pop(Client *c)
 {
 	detach(c);
-	attachabove(c);
+	attach(c);
 	focus(c);
 	arrange(c->mon);
 }
@@ -1661,7 +1647,7 @@ sendmon(Client *c, Monitor *m)
 	detachstack(c);
 	c->mon = m;
 	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-	attachabove(c);
+	attach(c);
 	attachstack(c);
 	focus(NULL);
 	arrange(NULL);
@@ -2195,7 +2181,7 @@ updategeom(void)
 					m->clients = c->next;
 					detachstack(c);
 					c->mon = mons;
-					attachabove(c);
+					attach(c);
 					attachstack(c);
 				}
 				if (m == selmon)
