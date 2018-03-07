@@ -2,6 +2,10 @@
 *.o
 dwm
 
+# Artifacts from patching
+*.rej
+*.orig
+
 # User configuration
 config.h
 
