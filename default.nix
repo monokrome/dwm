@@ -9,4 +9,3 @@ with import <nixpkgs> {}; stdenv.mkDerivation {
     xorg.libXinerama
   ];
 }
-
