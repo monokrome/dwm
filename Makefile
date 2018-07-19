@@ -48,4 +48,7 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
+devserver:
+	Xephyr -resizeable -ac :3
+
 .PHONY: all options clean dist install uninstall
