@@ -1483,7 +1483,7 @@ resizebarwin(Monitor *m) {
 	XMoveResizeWindow(
 	      dpy,
 	      m->barwin,
-	      m->wx + (((100.0f - barwidth) / 100.0f) / 2),
+	      m->wx + ((100.0f - barwidth) / 2),
 	      m->by,
 	      w * (barwidth / 100.0f),
 	      bh
