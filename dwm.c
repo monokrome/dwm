@@ -1476,22 +1476,20 @@ resize(Client *c, int x, int y, int w, int h, int interact)
 
 void
 resizebarwin(Monitor *m) {
-	unsigned int sysTrayWidth = 0;
-	unsigned int w = m->ww;
+	float barOffset;
+	float w = m->ww;
 
-	float barOffset = (barwidth / 100.0f) / 2;
+	if (showsystray && m == systraytomon(m))
+		w -= getsystraywidth();
 
-	if (showsystray && m == systraytomon(m)) {
-		sysTrayWidth = getsystraywidth();
-		w -= sysTrayWidth;
-	}
+	barOffset = (1.f - (barwidth / 100.0f)) * w;
 
 	XMoveResizeWindow(
 	      dpy,
 	      m->barwin,
-	      m->ww * (1.f - barOffset),
+	      (barOffset / 2) + m->wx,
 	      m->by,
-	      (m->ww * barwidth) - sysTrayWidth,
+	      w - barOffset,
 	      bh
        );
 }
