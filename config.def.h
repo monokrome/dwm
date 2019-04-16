@@ -33,7 +33,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     iscentered     isfloating   monitor */
-	{ "onboard",  NULL,       NULL,       0,            0,             1,           -1 },
+	{ "Onboard",  NULL,       NULL,       0,            0,             1,           -1 },
 };
 
 /* layout(s) */
