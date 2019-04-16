@@ -167,7 +167,6 @@ struct Systray {
 };
 
 /* function declarations */
-static float getbaroffset(Monitor const *m);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -309,12 +308,6 @@ static Window root, wmcheckwin;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
-
-
-static float
-getbaroffset(Monitor const *m) {
-	return 1.f - (barwidth / 100.0f) * m->ww;
-}
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -1436,11 +1429,13 @@ resize(Client *c, int x, int y, int w, int h, int interact)
 
 void
 resizebarwin(Monitor *m) {
+	float barOffset;
 	float w = m->ww;
-	float barOffset = getbaroffset(m);
 
 	if (showsystray && m == systraytomon(m))
 		w -= getsystraywidth();
+
+	barOffset = (1.f - (barwidth / 100.0f)) * w;
 
 	XMoveResizeWindow(
 	      dpy,
@@ -2350,7 +2345,7 @@ updatesystray(void)
 			i->mon = m;
 	}
 	w = w ? w + systrayspacing : 1;
-	x -= w + getbaroffset(m);
+	x -= w;
 	XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
 	wc.x = x; wc.y = m->by; wc.width = w; wc.height = bh;
 	wc.stack_mode = Above; wc.sibling = m->barwin;
