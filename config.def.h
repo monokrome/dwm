@@ -59,19 +59,17 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-
 static const char *dmenucmd[] = {
 	"rofi"
 		 "-show" "run"
 		 "-modi" "run"
-		 "-location" "1"
-		 "-width" "100"
-		 "-lines" "2"
+		 "-location" "2"
+		 "-width" "85"
+		 "-lines" "6"
 		 "-line-margin" "0"
 		 "-line-padding" "1"
 		 "-separator-style" "none"
-		 "-font" "Hack 10"
+		 "-font" "mono 10"
 		 "-columns" "9"
 		 "-bw" "0"
 		 "-disable-history"
